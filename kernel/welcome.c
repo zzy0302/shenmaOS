@@ -10,7 +10,7 @@
 #include "global.h"
 #include "proto.h"
 
-void welcomeMiao(){
+void welcomeShenma(){
 	int t=500;
 	printf("         ......*.........*....................       \n");
 	milli_delay(t);
@@ -122,8 +122,8 @@ PUBLIC void welcome(){
 	printf("|        | | (_)|   __) )( |___   / /  ( (_) )(  |_                |      \n"); 
 	printf("|        |_|\\___/ (____/ |_____) /_/    \\___/  \\____)              |   \n");    
 	printf("|                                                                  |      \n");
-	printf("|                                                                  |      \n");
-	printf("|                      ShenmaOS   1.0.1                            |      \n");
+	printf("|                      work with 1652716                           |      \n");
+	printf("|                      ShenmaOS   v1.3.2                           |      \n");
 	printf("|                                                                  |      \n");
 	printf("|                                                                  |      \n");
 	printf("|__________________________________________________________________|      \n");

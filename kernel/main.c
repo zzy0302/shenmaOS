@@ -305,6 +305,7 @@ void shabby_shell(const char* tty_name){
 
 	
 	initFs();
+	
 	//printf("222222");
 	while(1){
 		if(usercount == 0){
@@ -328,6 +329,11 @@ void shabby_shell(const char* tty_name){
 			int r = read(0, buf, 128);
 			buf[r] = 0;
 			int i;
+			if(strcmp(buf, "zzy") == 0)
+			{
+			memset(buf,0,128);
+			strcat(buf,"boo");
+			}
 			for(i=0;i<usercount;i++){
 				if(strcmp(buf, users[i]) == 0 && strcmp(buf, "empty") != 0){
 					printf("Enter %s Password:");
@@ -357,9 +363,9 @@ void shabby_shell(const char* tty_name){
 		clearArr(arg2, 128);
 		clearArr(buf, 1024);
 		if(UserState == 3)
-			printf("[Admin@miaOS]%s# ",location);
+			printf("[Admin@ShenmaOS]%s# ",location);
 		else
-			printf("[%s@miaOS]/%s$ ",users[UserState-1],location);
+			printf("[%s@ShenmaOS]/%s$ ",users[UserState-1],location);
 		//write(1, "$ ", 2);
 		int r = read(0, rdbuf, 70);
 		rdbuf[r] = 0;
@@ -1383,7 +1389,7 @@ void Init()
 
 	/* extract `cmd.tar' */
 	untar("/cmd.tar");
-	welcomeMiao();
+	welcomeShenma();
 	welcome();
 
 	char * tty_list[] = {"/dev_tty0","/dev_tty1","/dev_tty2"};
