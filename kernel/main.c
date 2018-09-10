@@ -1445,7 +1445,31 @@ int whoelse();
 void find();
 void place();
 void clean();
-void showgomoku();
+
+void showgomoku()
+{
+int xxx,yyy;
+char a="*";
+char b="+";
+printf("    01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20\n\n");
+for(yyy=0;yyy<20;yyy++)
+    {
+	if(yyy<9)
+	printf("0");
+	printf("%d  ",yyy+1);
+	for(xxx=0;xxx<20;xxx++)
+	{
+	
+	if(board[xxx][yyy]==0)
+		printf(" 0 ");
+	else if(board[xxx][yyy]==1)
+		printf(" O ");
+	else 
+		printf(" * ");
+	}
+	printf("\n");
+    }
+}
 
 
 void showgomokuhelp()
@@ -1527,7 +1551,6 @@ int judge(int i,int j,int x1,int y1) {        //读取五个格子，判断
 }
 
 void defeat() {
-    while(1) {
         play=1;
         now=1;
         for(x=0; x<20; x++)
@@ -1579,8 +1602,9 @@ void defeat() {
             }
         find();
         place();
+	showgomoku();
         clean();
-    }
+    
 }
 
 void find() {           //寻找得分最高的点
@@ -1601,7 +1625,7 @@ void find() {           //寻找得分最高的点
 }
 
 void place() {          //落子
-    printf("%d %d\n",outx,outy);
+    //printf("%d %d\n",outx,outy);
     board[outx][outy]=1;
 }
 
@@ -1630,25 +1654,49 @@ int judgeneed(int x,int y) {                //寻找该格周围是否有棋子�
 
 int gomoku() 
 {               //没用给的框架，太长了懒得看
-    char c[6];
-    while(1) 
-    {
-read(0,c,2);
-printf("c:%s",c);
-            memset(*board, 0, sizeof(board));
+    char c[128];
+memset(*board, 0, sizeof(board));
             memset(*score1, 0, sizeof(score1));
             memset(*score2, 0, sizeof(score2));
             memset(*score2, 0, sizeof(scoreall));
             play=1;
-       
-	if(strcmp(c,"q")==0)
+    while(1) 
+    {
+memset(c,0,128);
+read(0,c,128);
+//printf("c:%s\n",c);
+//printf("c[0]:%c\n",c[0]);
+//printf("c[1]:%c\n",c[1]);
+//printf("c[2]:%c\n",c[2]);
+//printf("c[3]:%c\n",c[3]);
+//printf("c[4]:%c\n",c[4]);
+
+	if(strcmp(c[0],'q')==0)
 	{return 0;}
        else 
 	{
-	x=(int)c;
-	read(0,c,4);
-	y=(int)c;  
-        board[x][y]=2;
+if(c[1]!=' ')
+{
+//printf("%d", c[0]-'0');
+x=(c[1]-'0')*10+(c[0]-'0');
+if(c[4]<='9'&&c[4]>='0')
+y=(c[3]-'0')*10+(c[4]-'0');
+else
+y=c[3]-'0';
+}
+else
+{
+//printf("%d\n%d\n", c[2]-'0',(c[2]-'0')*10+(c[3]-'0'));
+x=c[0]-'0';
+if(c[3]<='9'&&c[3]>='0')
+y=(c[2]-'0')*10+(c[3]-'0');
+else
+y=c[2]-'0';
+}
+
+//printf("x:%d\n",x);
+//printf("y:%d\n",y);
+        board[x-1][y-1]=2;
         defeat();
         }
     }
