@@ -420,10 +420,7 @@ void shabby_shell(const char* tty_name){
 
 				 //帮助
 				if(strcmp(cmd, "help") == 0){
-					//welcomeMiao();
-					//welcome();
 					showhelp();
-					//printf("help\n");
 				}
 				else if(strcmp(cmd, "clear") == 0){
 					clear();
@@ -488,7 +485,7 @@ void shabby_shell(const char* tty_name){
 				{
 					ls();
 				}
-				else if(strcmp(cmd, "proc") == 0){
+				else if(strcmp(cmd, "ps") == 0){
 					showProcess();
 				}else if(strcmp(cmd, "kill") == 0){
 					killpro(arg1);
@@ -498,6 +495,8 @@ void shabby_shell(const char* tty_name){
 					resume(arg1);
 				}else if(strcmp(cmd, "chess") == 0){
 					playchess(0,1);
+				}else if(strcmp(cmd, "gomoku") == 0){
+					gomoku();
 				}else{
 					continue;
 				}
@@ -1634,7 +1633,8 @@ int gomoku()
     char c[6];
     while(1) 
     {
-read(0,c,4);
+read(0,c,2);
+printf("c:%s",c);
             memset(*board, 0, sizeof(board));
             memset(*score1, 0, sizeof(score1));
             memset(*score2, 0, sizeof(score2));
