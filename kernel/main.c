@@ -303,8 +303,9 @@ void shabby_shell(const char* tty_name){
 	char arg2[128];//参数2
 	char buf[1024];
 
-
+	
 	initFs();
+	//printf("222222");
 	while(1){
 		if(usercount == 0){
 			printf("Enter Admin Password:");
@@ -484,8 +485,7 @@ void shabby_shell(const char* tty_name){
 				else if(strcmp(cmd, "ls") == 0)
 				{
 					ls();
-				}
-				else if(strcmp(cmd, "ps") == 0){
+				}else if(strcmp(cmd, "ps") == 0){
 					showProcess();
 				}else if(strcmp(cmd, "kill") == 0){
 					killpro(arg1);
@@ -497,6 +497,8 @@ void shabby_shell(const char* tty_name){
 					playchess(0,1);
 				}else if(strcmp(cmd, "gomoku") == 0){
 					gomoku();
+				}else if(strcmp(cmd, "cls") == 0){
+					printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 				}else{
 					continue;
 				}
@@ -776,12 +778,13 @@ void showhelp(){
 	printf("| edit+    [filename] [content]  | edit file, append content      |\n");
 	printf("| edit     [filename] [content]  | edit file, cover content       |\n");
 	printf("| delete   [filename]            | delete file                    |\n");
-	printf("| proc                           | show running process table     |\n");
+	printf("| ps                             | show running process table     |\n");
 	printf("| kill     [proc.no]             | kill process                   |\n");
 	printf("| pause    [proc.no]             | pause process                  |\n");
 	printf("| resume   [proc.no]             | resume process                 |\n");
+	printf("| cls                            | clear screen                   |\n");
 	printf("\n");
-	printf(" Applications: fuckLandlord, chess\n");
+	printf(" Applications: chess 2048 gomoku \n");
 
 }
 
@@ -796,21 +799,37 @@ void initFs()
 
 	for (i = 0; i < 500; i++)
 		filequeue[i] = 1;
-
+//printf("flag1");
 	fd = open("myUsers", O_RDWR);
+//printf("%d",fd);
+//printf("flag2");
+	if(fd!=-1)
 	close(fd);
+//printf("flag3");
 	fd = open("myUsersPassword", O_RDWR);
+//printf("flag4");
+	if(fd!=-1)
 	close(fd);
 	fd = open("fileLogs", O_RDWR);
+	if(fd!=-1)	
 	close(fd);
 	fd = open("user1", O_RDWR);
+//printf("2222222");
+	if(fd!=-1)
 	close(fd);
 	fd = open("user2", O_RDWR);
+//printf("333333");
+	if(fd!=-1)
 	close(fd);
+
 	/* init users */
 	fd = open("myUsers", O_RDWR);
+//printf("444444");
+//printf("%d",fd);
+if(fd!=-1){
 	n = read(fd, bufr, 1024);
 	bufr[strlen(bufr)] = '\0';
+
 	for (i = 0; i < strlen(bufr); i++)
 	{
 		if (bufr[i] != ' ')
@@ -844,12 +863,20 @@ void initFs()
 			count++;
 		}
 	}
-	close(fd);
+close(fd);
+}
+//printf("444444");
+	
+
 	count = 0;
 	k = 0;
 	
 	/* init password */
 	fd = open("myUsersPassword", O_RDWR);
+//printf("222222");
+//printf("%d",fd);
+if(fd!=-1)
+{
 	n = read(fd, bufp, 1024);
 	for (i = 0; i < strlen(bufp); i++)
 	{
@@ -878,11 +905,13 @@ void initFs()
 		}
 	}
 	close(fd);
+}
 	count = 0;
 	k = 0;
 
 	/* init files */
 	fd = open("fileLogs", O_RDWR);
+
 	n = read(fd, buff, 1024);
 	for (i = 0; i <= strlen(buff); i++)
 	{
@@ -913,6 +942,7 @@ void initFs()
 			count++;
 		}
 	}
+	if(fd!=-1)
 	close(fd);
 	
 	int empty = 0;
@@ -1258,6 +1288,7 @@ void ls()
 {
 	int fd = -1, n;
 	char bufr[1024];
+	//printf("location now is : %s\n",location);
 	if (strcmp(location, users[0]) == 0)
 	{
 		fd = open("user1", O_RDWR);
@@ -1280,6 +1311,29 @@ void ls()
 		printf("%s\n", bufr);
 		close(fd);
 	}
+	else if(strcmp(location, "/") == 0)
+	{
+		printf("User 1:\n");
+		fd = open("user1", O_RDWR);
+		if (fd == -1)
+		{
+			printf("empty\n");
+		}
+		n = read(fd, bufr, 1024);
+		printf("%s\n", bufr);
+		close(fd);
+		printf("User 2:\n");
+		fd = open("user2", O_RDWR);
+		if (fd == -1)
+		{
+			printf("empty\n");
+		}
+		n = read(fd, bufr, 1024);
+		printf("%s\n", bufr);
+		close(fd);
+	}
+
+
 	else
 		printf("Permission deny!\n");
 }

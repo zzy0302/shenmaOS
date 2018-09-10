@@ -133,7 +133,7 @@ PUBLIC int do_rdwt()
 			/* write the updated i-node back to disk */
 			sync_inode(pin);
 		}
-
+ 
 		return bytes_rw;
 	}
 }
