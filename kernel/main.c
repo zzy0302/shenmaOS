@@ -1445,15 +1445,14 @@ int who();
 int whoelse();
 void find();
 void place();
-void getchess();
 void clean();
 void showgomoku();
 
 
-void showhelp()
+void showgomokuhelp()
 {
-printf("please input x y to play gomoku.\n")
-printf("input 'q' to quit, 'h' for help.\n")
+printf("please input x y to play gomoku.\n");
+printf("input 'q' to quit, 'h' for help.\n");
 }
 
 
@@ -1494,13 +1493,13 @@ int judge(int i,int j,int x1,int y1) {        //读取五个格子，判断
             continue;
         }
     }
-    if(strstr(a,situation[0])||
-       strstr(a,situation[1])||
-       strstr(a,situation[2])||
-       strstr(a,situation[3])||
-       strstr(a,situation[4]))
+    if(strcmp(a,situation[0])||
+       strcmp(a,situation[1])||
+       strcmp(a,situation[2])||
+       strcmp(a,situation[3])||
+       strcmp(a,situation[4]))
         return 900;
-    if(strstr(a,situation[5]))
+    if(strcmp(a,situation[5]))
         return 10000;
     k=0,l=0;
     for(n=0; n<5; n++) {
@@ -1581,7 +1580,6 @@ void defeat() {
             }
         find();
         place();
-        getchess();
         clean();
     }
 }
@@ -1606,16 +1604,8 @@ void find() {           //寻找得分最高的点
 void place() {          //落子
     printf("%d %d\n",outx,outy);
     board[outx][outy]=1;
-    fflush(stdout);
 }
 
-void getchess() {       //获取对方的棋子
-    char c[4];
-    scanf("%s",c);
-    scanf("%d %d",&x,&y);
-    getchar();
-    board[x][y]=oppo;
-}
 
 void clean() {          //初始化得分数组
     memset(*score1, 0, sizeof(score1));
@@ -1644,7 +1634,7 @@ int gomoku()
     char c[6];
     while(1) 
     {
-read(fd_stdin,c,2);
+read(0,c,4);
             memset(*board, 0, sizeof(board));
             memset(*score1, 0, sizeof(score1));
             memset(*score2, 0, sizeof(score2));
@@ -1656,7 +1646,7 @@ read(fd_stdin,c,2);
        else 
 	{
 	x=(int)c;
-	read(fd_stdin,c,2);
+	read(0,c,4);
 	y=(int)c;  
         board[x][y]=2;
         defeat();
